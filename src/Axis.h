@@ -29,15 +29,15 @@ class Axis
       CALIBRATION_FINISHED = 3
     } AxisCalibrationState;
 
-    Axis(AccelStepper& m, int s, bool cwDir, float axisShift, int hallSensorPin);
+    Axis(AccelStepper& m, float s, bool cwDir, float axisShift, int hallSensorPin);
     void setup();
     void calibrate();
     void run();
-    void stanby();
+    void standby();
     void loop();
   private:
     AccelStepper motor;
-    int stepsPerRevolution; // Steps per ull circle
+    float stepsPerRevolution; // Steps per ull circle
     bool cwDirection; // Reverse direction
     float axisShift;
     int hallSensorPin;

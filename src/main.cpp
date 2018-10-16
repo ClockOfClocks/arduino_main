@@ -29,30 +29,30 @@ int calibrateStepOut;
 #define motor2Pin4  37     // IN4 on the ULN2003 driver 2
 
 
-int fullRotationSteps = 4076; // 64 * 63.68 = 4075.52 // https://youtu.be/B86nqDRskVU?t=18m41s
+float fullRotationSteps = 8151.04; // 64 * 63.68 = 4075.52 // * 2 // https://youtu.be/B86nqDRskVU?t=18m41s
 
 AccelStepper stepper1(HALFSTEP, motor1Pin1, motor1Pin3, motor1Pin2, motor1Pin4);
 AccelStepper stepper2(HALFSTEP, motor2Pin1, motor2Pin3, motor2Pin2, motor2Pin4);
 
-Axis ax1(stepper1, fullRotationSteps, false, 27.9371428, hallPin1);
-Axis ax2(stepper2, fullRotationSteps, true, 27.9371428, hallPin2);
+Axis ax1(stepper1, fullRotationSteps, false, 27.118, hallPin1);
+Axis ax2(stepper2, fullRotationSteps, true, 28.118, hallPin2);
 
 void setup() {
-  ax1.setup();
-  ax2.setup();
+        Serial.begin(9600);
 
-  ax1.calibrate();
-  ax2.calibrate();
+        ax1.setup();
+        ax2.setup();
 
-  Serial.begin(9600);
+        ax1.calibrate();
+        ax2.calibrate();
 
-  pinMode(hallPinPower, OUTPUT);
+        pinMode(hallPinPower, OUTPUT);
 }
 
 void loop(){
-  // Power on hall sensor
-  digitalWrite(hallPinPower, HIGH);
+        // Power on hall sensor
+        digitalWrite(hallPinPower, HIGH);
 
-  ax1.loop();
-  ax2.loop();
+        ax1.loop();
+        ax2.loop();
 }
